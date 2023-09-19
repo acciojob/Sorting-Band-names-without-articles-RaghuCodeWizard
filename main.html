@@ -1,48 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8">
     <title>Sort Without Articles</title>
-  </head>
-  <body>
     <style>
-      body {
-        margin: 0;
-        font-family: sans-serif;
-        background: url('https://source.unsplash.com/nDqA4d5NL0k/2000x2000');
-        background-size: cover;
-        display: flex;
-        align-items: center;
-        min-height: 100vh;
-      }
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background: url('https://source.unsplash.com/nDqA4d5NL0k/2000x2000');
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-      #bands {
-        list-style: inside square;
-        font-size: 20px;
-        background: white;
-        width: 500px;
-        margin: auto;
-        padding: 0;
-        box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.05);
-      }
+        #bands {
+            list-style: inside square;
+            font-size: 20px;
+            background: white;
+            width: 500px;
+            margin: auto;
+            padding: 0;
+            box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.05);
+        }
 
-      #bands li {
-        border-bottom: 1px solid #efefef;
-        padding: 20px;
-      }
+        #bands li {
+            border-bottom: 1px solid #efefef;
+            padding: 20px;
+        }
 
-      #bands li:last-child {
-        border-bottom: 0;
-      }
+        #bands li:last-child {
+            border-bottom: 0;
+        }
 
-      a {
-        color: #ffc600;
-        text-decoration: none;
-      }
+        a {
+            color: #ffc600;
+            text-decoration: none;
+        }
     </style>
+</head>
+<body>
+<ul></ul>
+<script>
+    // Suppose an array that contains a list of popular tourist spots
+    let touristSpots = ['The Virupaksha Temple', 'Victoria Memorial', 'Tajmahal'];
 
-    <ul></ul>
+    // Function to sort tourist spots without articles
+    function sortTouristSpots(names) {
+        const articles = ['a', 'an', 'the'];
+        return names.sort((a, b) => {
+            let nameA = a.toLowerCase();
+            let nameB = b.toLowerCase();
+            for (const article of articles) {
+                if (nameA.startsWith(article + ' ')) {
+                    nameA = nameA.slice(article.length + 1);
+                }
+                if (nameB.startsWith(article + ' ')) {
+                    nameB = nameB.slice(article.length + 1);
+                }
+            }
+            return nameA.localeCompare(nameB);
+        });
+    }
 
-    <script type="text/javascript" src="./script.js"></script>
-  </body>
+    // Sort the tourist spots
+    const sortedTouristSpots = sortTouristSpots(touristSpots);
+
+    // Create an HTML string for the unordered list
+    const ulHTML = '<ul id="bands">' + sortedTouristSpots.map(name => `<li>${name}</li>`).join('') + '</ul>';
+
+    // Add the HTML string to the body
+    document.body.innerHTML = ulHTML;
+</script>
+</body>
 </html>
